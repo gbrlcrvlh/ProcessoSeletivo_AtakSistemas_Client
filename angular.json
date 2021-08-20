@@ -1,0 +1,146 @@
+{
+  "version": 1,
+  "projects": {
+    "webSearch": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/webSearch",
+      "sourceRoot": "apps/webSearch/src",
+      "prefix": "webSearch",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/webSearch",
+            "index": "apps/webSearch/src/index.html",
+            "main": "apps/webSearch/src/main.ts",
+            "polyfills": "apps/webSearch/src/polyfills.ts",
+            "tsConfig": "apps/webSearch/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/webSearch/src/favicon.ico",
+              "apps/webSearch/src/assets"
+            ],
+            "styles": ["apps/webSearch/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/webSearch/src/environments/environment.ts",
+                  "with": "apps/webSearch/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "webSearch:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "webSearch:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "webSearch:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/webSearch/src/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/webSearch/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "webSearch-e2e": {
+      "root": "apps/webSearch-e2e",
+      "sourceRoot": "apps/webSearch-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/webSearch-e2e/cypress.json",
+            "tsConfig": "apps/webSearch-e2e/tsconfig.e2e.json",
+            "devServerTarget": "webSearch:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "webSearch:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/webSearch-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "analytics": false
+  },
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "webSearch"
+}

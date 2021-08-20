@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="navbar mat-elevation-z20">
+
+    <div class="field-box text-search-field no-padding-bottom" >
+      <mat-form-field style="width: 100%" appearance="outline">
+        <mat-label>Pesquisa</mat-label>
+        <input [formControl]="searchFormControl" matInput placeholder="Digite sua busca">
+      </mat-form-field>
+    </div>
+
+    <div class="field-box pages-number-field no-padding-bottom">
+      <mat-form-field style="width: 100%" appearance="outline">
+        <mat-label>Número de Páginas</mat-label>
+        <input [formControl]="pagesNumberFormControl" [type]="'number'" [min]="'1'" (focusout)="checkPagesNumber()" matInput placeholder="Digite sua busca">
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button (click)="search()">
+      <span class="button-text">Buscar</span>
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+
+  <div class="search-result-container">
+    <div class="image" *ngIf="!initialized">
+      <img src="assets/images/5326066.jpg">
+    </div>
+
+    <div class="no-results" *ngIf="initialized && searchData.length < 1">
+      <img src="assets/images/not-found.png">
+      <span>Sem Resultados!</span>
+    </div>
+
+    <div class="result-list" *ngIf="initialized && searchData.length >= 1">
+      <div class="result-item mat-elevation-z3" *ngFor="let data of searchData">
+        <span class="title">{{data.title}}</span>
+        <a target="_blank" rel="noopener noreferrer" [href]="data.link" class="link">[{{data.link}}]</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="loading-container" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
