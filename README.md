@@ -10,4 +10,6 @@ Foi desenvolvido uma Aplicação Web em Angular para consumir e exibir os dados 
 
 **Como inicializar o Cliente:**
 
-Basta apenas instalar as dependencias do projeto através do `npm install` e rodar com o comando `ng server`
+Basta apenas instalar as dependencias do projeto através do `npm install` e rodar com o comando `ng serve`. 
+
+Após a inicialização o cliente poderá ser acessado pela porta 4200 do _localhost_
